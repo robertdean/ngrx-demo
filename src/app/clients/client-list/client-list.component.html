@@ -1,0 +1,15 @@
+<p>
+  client-list works!
+</p>
+
+<ul>
+  <li *ngFor="let item of clients$ | async">
+    <a [routerLink]="item.id">
+      {{ item.name }}
+    </a></li>
+</ul>
+<pre>
+
+
+
+</pre>
