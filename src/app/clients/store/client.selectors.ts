@@ -27,7 +27,6 @@ export const getClientById = createSelector(
   selectClientState,
   getRouterState,
   (state, router) => {
-    console.log(state.entities);
     return (
       router.state &&
       router.state['params'] &&
