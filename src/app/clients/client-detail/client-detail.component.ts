@@ -1,12 +1,15 @@
-import { selectActiveClients } from './../store/client.selectors';
-import { UpdateClient, UpsertClient } from './../store/client.actions';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { AppState } from '../../reducers';
-import { getClientById, selectPendingClients } from '../store/client.selectors';
+import { UpdateClient, DeleteClient } from '../store/client.actions';
+import {
+  selectActiveClients,
+  getClientById,
+  selectPendingClients
+} from '../store/client.selectors';
 import { Client } from '../store/client.model';
-import { DeleteClient } from '../store/client.actions';
+
 import { Update } from '@ngrx/entity';
 
 @Component({
@@ -25,10 +28,9 @@ export class ClientDetailComponent implements OnInit {
   }
 
   deactivate(client: Client) {
-    const newClient = client;
-    newClient.status = 'PENDING';
-    Object.assign(newClient, client);
-    this.store.dispatch(new UpdateClient(newClient));
+    this.store.dispatch(
+      new UpdateClient(Object.assign(client, { status: 'PENDING' }))
+    );
   }
   ngOnInit() {
     this.client$ = this.store.pipe(select(getClientById));
