@@ -1,9 +1,9 @@
 import * as faker from 'faker/locale/en_US';
 import { Client } from './clients/store/client.model';
 
-const oneClient = (): Client => {
+const oneClient = (i: string): Client => {
   return {
-    id: faker.random.number(1000),
+    id: i,
     name: faker.lorem.word(),
     status: faker.random.arrayElement([
       'ACTIVE',
@@ -40,9 +40,10 @@ const oneUser = (): User => {
 };
 
 export const manyClients = (count = faker.random.number(100)) => {
+  console.log('generating fake clients...');
   const res: Client[] = [];
   for (let i = 0; i < count; i++) {
-    res.push(oneClient());
+    res.push(oneClient((i + 1).toString()));
   }
   return res;
 };

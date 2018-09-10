@@ -13,6 +13,7 @@ export class InMemoryDataService implements InMemoryDbService {
   createDb() {
     return { users, clients };
   }
+
   responseInterceptor(resOptions: ResponseOptions, reqInfo: RequestInfo) {
     resOptions.headers.set('x-test', 'test-header');
     const method = reqInfo.method.toUpperCase();

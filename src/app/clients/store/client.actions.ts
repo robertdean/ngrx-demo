@@ -10,8 +10,10 @@ export enum ClientActionTypes {
   AddClients = '[Client] Add Clients',
   UpsertClients = '[Client] Upsert Clients',
   UpdateClient = '[Client] Update Client',
+  UpdateClientSuccess = '[Client] Update Client Success',
   UpdateClients = '[Client] Update Clients',
   DeleteClient = '[Client] Delete Client',
+  DeleteClientSuccess = '[Client] Delete Client Success',
   DeleteClients = '[Client] Delete Clients',
   ClearClients = '[Client] Clear Clients'
 }
@@ -45,14 +47,15 @@ export class AddClients implements Action {
 
 export class UpsertClients implements Action {
   readonly type = ClientActionTypes.UpsertClients;
-
   constructor(public payload: { clients: Client[] }) {}
 }
-
 export class UpdateClient implements Action {
   readonly type = ClientActionTypes.UpdateClient;
-
-  constructor(public payload: { client: Update<Client> }) {}
+  constructor(public payload: Client) {}
+}
+export class UpdateClientSuccess implements Action {
+  readonly type = ClientActionTypes.UpdateClientSuccess;
+  constructor(public payload: Update<Client>) {}
 }
 
 export class UpdateClients implements Action {
@@ -63,10 +66,12 @@ export class UpdateClients implements Action {
 
 export class DeleteClient implements Action {
   readonly type = ClientActionTypes.DeleteClient;
-
   constructor(public payload: { id: string }) {}
 }
-
+export class DeleteClientSuccess implements Action {
+  readonly type = ClientActionTypes.DeleteClientSuccess;
+  constructor(public payload: { id: string }) {}
+}
 export class DeleteClients implements Action {
   readonly type = ClientActionTypes.DeleteClients;
 
@@ -85,7 +90,9 @@ export type ClientActions =
   | AddClients
   | UpsertClients
   | UpdateClient
+  | UpdateClientSuccess
   | UpdateClients
   | DeleteClient
+  | DeleteClientSuccess
   | DeleteClients
   | ClearClients;

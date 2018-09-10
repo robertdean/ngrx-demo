@@ -32,8 +32,8 @@ export function reducer(state = initialState, action: ClientActions): State {
       return adapter.upsertMany(action.payload.clients, state);
     }
 
-    case ClientActionTypes.UpdateClient: {
-      return adapter.updateOne(action.payload.client, state);
+    case ClientActionTypes.UpdateClientSuccess: {
+      return adapter.updateOne(action.payload, state);
     }
 
     case ClientActionTypes.UpdateClients: {

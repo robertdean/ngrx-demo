@@ -1,13 +1,14 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 const cudOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
-
-export abstract class HttpBaseService<T> {
+interface IEntity {
+  id: string | number;
+}
+export abstract class HttpBaseService<T extends IEntity> {
   constructor(protected http: HttpClient, private url: string) {}
   getAll(): Observable<T[]> {
     return this.http.get<T[]>(this.url).pipe(
@@ -46,15 +47,16 @@ export abstract class HttpBaseService<T> {
     );
   }
   update(item: T): Observable<T> {
-    return this.http.put(this.url, item, cudOptions).pipe(
-      map(result => result as T),
+    const url = `${this.url}/${item['id']}`;
+    return this.http.put(url, item, cudOptions).pipe(
+      map(_ => item),
       catchError(this.handleError)
     );
   }
   private handleError(error: any) {
     // In a real world app, we might send the error to remote logging infrastructure
     // and reformat for user consumption
-    console.log(error); // log to console instead
+    console.log('ERROR->', error); // log to console instead
     return Observable.throw(error);
   }
 }

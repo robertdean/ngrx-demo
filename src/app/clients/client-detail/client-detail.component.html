@@ -1,6 +1,16 @@
 <p>
   client-detail works!
 </p>
-<pre>
-  id:-{{ client$ | async | json  }}-
-</pre>
+<div *ngIf="client$ | async as client">
+  <pre>
+    id:-{{ client | json }}-
+  </pre>
+  <button (click)="deactivate(client)">deactivate</button>
+  <button (click)="delete(client.id)">delete</button>
+</div>
+<div *ngIf="pendingItems$ | async as pendingItems">
+  Pending {{ pendingItems.length }}
+</div>
+<div *ngIf="activeItems$ | async as activeItems">
+  Active {{ activeItems.length }}
+</div>

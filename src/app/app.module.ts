@@ -34,7 +34,7 @@ import { CustomSerializer } from './router.state';
     HttpClientModule,
     HttpClientInMemoryWebApiModule.forRoot(InMemoryDataService, {
       dataEncapsulation: false,
-      delay: 200,
+      delay: 1000,
       passThruUnknownUrl: true
     }),
     // core & shared

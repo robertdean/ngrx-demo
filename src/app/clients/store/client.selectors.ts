@@ -18,6 +18,10 @@ export const selectActiveClients = createSelector(selectAllClients, clients =>
   clients.filter(x => x.status === 'ACTIVE')
 );
 
+export const selectPendingClients = createSelector(selectAllClients, clients =>
+  clients.filter(x => x.status === 'PENDING')
+);
+
 export const selectActiveClientCount = createSelector(
   selectAllClients,
   clients => clients.filter(x => x.status === 'ACTIVE').length

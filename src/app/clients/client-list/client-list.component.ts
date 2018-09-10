@@ -1,4 +1,7 @@
-import { selectActiveClientCount } from './../store/client.selectors';
+import {
+  selectActiveClientCount,
+  selectActiveClients
+} from './../store/client.selectors';
 import { Component, OnInit } from '@angular/core';
 import { Client } from '../store/client.model';
 import { Observable } from 'rxjs';
@@ -25,8 +28,7 @@ export class ClientListComponent implements OnInit {
   ngOnInit() {
     this.store.dispatch(new FetchClients());
     this.active$ = this.store.pipe(select(selectActiveClientCount));
-    this.clients$ = this.store.pipe(select(selectAllClients));
-
+    this.clients$ = this.store.pipe(select(selectActiveClients));
     this.loading$ = this.store.pipe(select(selectClientsLoading));
   }
 }
