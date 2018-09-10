@@ -40,7 +40,7 @@ export function reducer(state = initialState, action: ClientActions): State {
       return adapter.updateMany(action.payload.clients, state);
     }
 
-    case ClientActionTypes.DeleteClient: {
+    case ClientActionTypes.DeleteClientSuccess: {
       return adapter.removeOne(action.payload.id, state);
     }
 
