@@ -1,6 +1,7 @@
 import {
   selectActiveClientCount,
-  selectActiveClients
+  selectActiveClients,
+  getClientsByIds
 } from './../store/client.selectors';
 import { Component, OnInit } from '@angular/core';
 import { Client } from '../store/client.model';
@@ -28,7 +29,9 @@ export class ClientListComponent implements OnInit {
   ngOnInit() {
     this.store.dispatch(new FetchClients());
     this.active$ = this.store.pipe(select(selectActiveClientCount));
-    this.clients$ = this.store.pipe(select(selectActiveClients));
+    this.clients$ = this.store.pipe(
+      select(getClientsByIds, { ids: ['1', '2', '3', '4'] })
+    );
     this.loading$ = this.store.pipe(select(selectClientsLoading));
   }
 }

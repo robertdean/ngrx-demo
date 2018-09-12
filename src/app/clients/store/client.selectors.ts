@@ -32,9 +32,18 @@ export const getClientById = createSelector(
   getRouterState,
   (state, router) => {
     return (
+      router &&
       router.state &&
       router.state['params'] &&
-      state.entities[+router.state['params'].id]
+      state.entities[router.state['params'].id]
     );
+  }
+);
+
+export const getClientsByIds = createSelector(
+  selectAllClients,
+  (clients, props: { ids: string[] }) => {
+    console.log(clients);
+    return clients.filter(x => props.ids.includes(x.id));
   }
 );

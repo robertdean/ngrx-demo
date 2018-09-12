@@ -1,11 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect } from '@ngrx/effects';
-import { of, fromEvent } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { of, fromEvent, merge } from 'rxjs';
+import { map, mapTo } from 'rxjs/operators';
+import { IsOnline, IsOffline } from './reducers/browser';
 
 @Injectable()
 export class AppEffects {
   constructor(private actions$: Actions) {}
+
+  @Effect()
+  online$ = merge(
+    of(navigator.onLine),
+    fromEvent(window, 'online').pipe(mapTo(true)),
+    fromEvent(window, 'offline').pipe(mapTo(false))
+  ).pipe(map(online => (online ? new IsOnline() : new IsOffline())));
 
   /*@Effect()
   ping$ = interval(1000).pipe(map(_ => new Ping()));

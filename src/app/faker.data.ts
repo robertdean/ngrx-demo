@@ -1,6 +1,21 @@
 import * as faker from 'faker/locale/en_US';
 import { Client } from './clients/store/client.model';
+import { Team } from './teams/team.model';
 
+const oneTeam = (i: string): Team => {
+  return {
+    id: i,
+    name: faker.lorem.word(),
+    members: [],
+    status: faker.random.arrayElement([
+      'ACTIVE',
+      'ACTIVE',
+      'ACTIVE',
+      'SUSPENDED',
+      'PENDING'
+    ])
+  };
+};
 const oneClient = (i: string): Client => {
   return {
     id: i,
@@ -37,6 +52,14 @@ const oneUser = (): User => {
     readyDate: faker.date.future(),
     domain: faker.internet.domainName()
   */
+};
+export const manyTeams = (count = faker.random.number(10)) => {
+  console.log('generating fake teams...');
+  const res: Team[] = [];
+  for (let i = 0; i < count; i++) {
+    res.push(oneTeam((i + 1).toString()));
+  }
+  return res;
 };
 
 export const manyClients = (count = faker.random.number(100)) => {
